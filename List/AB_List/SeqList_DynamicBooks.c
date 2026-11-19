@@ -1,4 +1,4 @@
-/* Main2_01.c —— 用顺序表（SqList）的形式重新实现图书列表
+/* SeqList_DynamicBooks.c —— 用顺序表（SqList）的形式重新实现图书列表
  *
  * 与 Main2.c 的本质区别：
  *   Main2.c : Books List[3]  —— 定长静态数组，长度写死在代码里，
