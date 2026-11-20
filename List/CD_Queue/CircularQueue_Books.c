@@ -26,7 +26,7 @@ Queue* InitQueue() {
 }
 
 //  入队
-void equeue(Queue* q, Books* b) {
+void equeue(Queue* q, Books b) {
     /*
     if((q->rear + 1) % MAXSIZE == q->front) {
         printf(" full\n");
@@ -37,7 +37,7 @@ void equeue(Queue* q, Books* b) {
         printf("full");
         return;
    }
-    q->data[q->rear] = *b;
+    q->data[q->rear] = b;
     q->rear = ((q->rear) + 1) % MAXSIZE;
     q->tag = 1; 
 }
@@ -90,14 +90,14 @@ int main() {
     Books b6 = {6, "book6", 600};
     Books b7 = {7, "book7", 700};
     Books b8 = {8, "book8", 800};
-    equeue(q, &b1);
-    equeue(q, &b2);
-    equeue(q, &b3);
-    equeue(q, &b4);
-    equeue(q, &b5);
-    equeue(q, &b6);
-    equeue(q, &b7);
-    equeue(q, &b8);
+    equeue(q, b1);
+    equeue(q, b2);
+    equeue(q, b3);
+    equeue(q, b4);
+    equeue(q, b5);
+    equeue(q, b6);
+    equeue(q, b7);
+    equeue(q, b8);
     PrintQueue(q);
     printf("==========\n");
 
