@@ -184,20 +184,21 @@ void ReverseList(Node* head) {
 
 //  删除链表中间节点
 //  遍历链表,找到要删除的节点的前一个节点,将它的指针指向要删除的节点的下一个节点
-void DeleteMiddle(Node* head) {
-    Node* current = head->Next;
-    while (current->Next != NULL) {
-        current = current->Next;
-    }
-    if (current->Next == NULL) {
-        printf("要删除的节点不存在\n");
-        return;
-    }
-    Node* toDelete = current->Next;
-    current->Next = toDelete->Next;
-    free(toDelete->data);  // 释放节点数据内存
-    free(toDelete);  // 释放节点内存
-}
+// ======= fk ===========
+// void DeleteMiddle(Node* head) {
+//     Node* current = head->Next;
+//     while (current->Next != NULL) {
+//         current = current->Next;
+//     }
+//     if (current->Next == NULL) {
+//         printf("no delete\n");
+//         return;
+//     }
+//     Node* toDelete = current->Next;
+//     current->Next = toDelete->Next;
+//     free(toDelete->data);  // 释放节点数据内存
+//     free(toDelete);  // 释放节点内存
+// }
 
 int main() {
     
@@ -208,43 +209,43 @@ int main() {
     InsertTail(head, b3);
     InsertTail(head, b4);
     
-    printf("从尾插入元素后:\n");
+    printf("inserttail:\n");
     PrintList(head);
-    printf("从头插入元素:\n");
+    printf("inserthead:\n");
     
     Books b1 = {1, "Book1", 100};
     Books b2 = {2, "Book2", 200};
     InsertHead(head, b2);
     InsertHead(head, b1);
 
-    printf("在第3个位置插入元素:\n");
+    printf("inseert at 3:\n");
     Books b3_5 = {3, "Book3.5", 500};
     InsertAt(head, 3, b3_5);
     PrintList(head);
 
-    printf("在第3个位置删除元素:\n");
+    printf("delete at 3:\n");
     DeleteAt(head, 3);
     PrintList(head);
 
-    printf("倒数第2个节点为:%d %s %d\n", FindLastK_Counting(head, 2)->id, FindLastK_Counting(head, 2)->name, 
+    printf("last_2:%d %s %d\n", FindLastK_Counting(head, 2)->id, FindLastK_Counting(head, 2)->name, 
     FindLastK_Counting(head, 2)->price);
-    printf("倒数第3个节点为:%d %s %d\n", FindLastK_DoublePointer(head, 3)->id,FindLastK_DoublePointer(head, 3)->name,
+    printf("last_3:%d %s %d\n", FindLastK_DoublePointer(head, 3)->id,FindLastK_DoublePointer(head, 3)->name,
     FindLastK_DoublePointer(head, 3)->price);
 
     InsertTail(head, b3);
-    printf("在尾插入元素后:\n");
+    printf("inserttail:\n");
     PrintList(head);
-    printf("删除相同元素后:\n");
+    printf("delete the same:\n");
     DeleteDuplicates(head);
     PrintList(head);
 
-    printf("反转链表后:\n");
+    printf("reverse:\n");
     ReverseList(head);
     PrintList(head);
 
-    printf("删除中间节点后:\n");
-    DeleteMiddle(head);
-    PrintList(head);
+    printf("delete mid:\n");
+    // DeleteMiddle(head);
+    // PrintList(head);
     
     FreeList(head);  // 释放链表内存
     return 0;

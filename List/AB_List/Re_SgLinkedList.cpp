@@ -47,7 +47,6 @@ Node* Create_newNode (const Books& B)
 void InsertHead (Node* head, Books B)
 {
     Node* newNode = Create_newNode (B);
-    
     newNode->next = head->next;
     head->next = newNode;
 }
@@ -56,7 +55,6 @@ void InsertHead (Node* head, Books B)
 void InsertTail (Node* head, Books B)
 {
     Node* newNode = Create_newNode (B);
-
     Node* current = head;
     while (current->next != nullptr)
     {
@@ -68,6 +66,8 @@ void InsertTail (Node* head, Books B)
 //  指定位置插入元素
 void InsertAt (Node* head, int index, Books B)
 {
+    if (head == nullptr || index < 1) return;
+
     Node* newNode = Create_newNode (B);
     Node* current = head;
     for (int i = 0; i != index - 1; ++i) { current = current->next; }
@@ -78,6 +78,8 @@ void InsertAt (Node* head, int index, Books B)
 //  指定位置删除元素
 void DeleteAt (Node* head, int index)
 {
+    if (head == nullptr || index < 1) return;
+
     Node* current = head;
     for (int i = 0; i != index - 1; ++i) { current = current->next; }
     Node* toDelete = current->next;
@@ -88,6 +90,12 @@ void DeleteAt (Node* head, int index)
 //  打印链表
 void PrintList (Node* head)
 {
+    if (head == nullptr)
+    {
+        std::cout << "List nullptr" << '\n';
+        return;
+    }
+
     Node* current = head->next;
     while (current != nullptr)
     {
@@ -110,18 +118,82 @@ void DeleteList (Node* head)
     }
 }
 
-//  查找倒数第 k 个节点
+//  查找倒数第 k 个节点,快慢指针
 Books FindLast_K (Node* head, int k)
 {
+    if (head == nullptr || k <= 0) return {};
+
     Node* fast = head;
     Node* slow = head;
-    for (int i = 0; i != k; ++i) { fast = fast->next; }
+    for (int i = 0; i != k; ++i) 
+    { 
+        if (fast == nullptr) return {};
+        fast = fast->next; 
+    }
     while (fast != nullptr)
     {
         fast = fast->next;
         slow = slow->next;
     }
     return slow->data;
+}
+
+//  反转链表，三指针法
+void ReverseList (Node* head)
+{
+    if (head == nullptr) return;
+
+    Node* pre = nullptr;
+    Node* curr = head->next;
+    while (curr != nullptr)
+    {
+        Node* next = curr->next;
+        curr->next = pre;
+        pre = curr;
+        curr = next;
+    }
+    head->next = pre;
+}
+
+//  删除中间节点
+void DeleteMid (Node* head)
+{
+    if (head == nullptr) return;
+
+    Node* curr = head->next;
+    int cnt = 1;
+    while (curr != nullptr)
+    {
+        curr = curr->next;
+        ++cnt;
+    }
+    int idx = (cnt + 1) / 2;
+    Node* pre_todelete = head;
+    for (int i = 0; i != idx - 1; ++i)
+    {
+        pre_todelete = pre_todelete->next;
+    }
+    Node* todelete = pre_todelete->next;
+    pre_todelete->next = todelete->next;
+    delete todelete;
+}
+
+//  删除中间节点，快慢指针
+void DeleteMid_Double (Node* head)
+{
+    if (head->next == nullptr) return;
+
+    Node* fast = head;
+    Node* slow = head;
+    Node* pre = nullptr;
+    while (fast != nullptr && fast->next != nullptr)
+    {
+        fast = fast->next->next;
+        pre = slow;
+        slow = slow->next;
+    }
+    pre->next = slow->next;
+    delete slow;
 }
 
 int main ()
@@ -148,6 +220,15 @@ int main ()
 
     std::cout << "FindLast_3 : "
             << FindLast_K (head, 3).name << '\n';
+    std::cout << "====================" << '\n';
+
+    ReverseList (head);
+    PrintList (head);
+    std::cout << "====================" << '\n';
+
+    DeleteMid (head);
+    PrintList (head);
+    std::cout << "====================" << '\n';
     
     DeleteList (head);
     head = nullptr;
