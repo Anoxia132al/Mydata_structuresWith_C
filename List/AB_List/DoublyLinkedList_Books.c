@@ -9,7 +9,7 @@ typedef struct BooksList {
 } Books;
 
 typedef struct node{
-    Books* data;
+    Books data;
     struct node* Next;
     struct node* Pre;
 } Node;
@@ -17,7 +17,6 @@ typedef struct node{
 //  初始化双向链表,返回头节点
 Node* InitList() {
     Node* head = (Node*)malloc(sizeof(Node));
-    head->data = NULL;
     head->Next = NULL;
     head->Pre = NULL;
     return head;
@@ -27,15 +26,13 @@ Node* InitList() {
 void InsertHead(Node* head, Books b) {
     // 为新节点分配内存
     Node* newNode = (Node*)malloc(sizeof(Node));
-    // 为新节点数据分配内存
-    newNode->data = (Books*)malloc(sizeof(Books));
     // 为新节点赋值
     /*
     newNode->data->id = b.id;
     strcpy(newNode->data->name, b.name);
     newNode->data->price = b.price;
     */
-    *(newNode->data) = b;
+    newNode->data = b;
 
     newNode->Next = head->Next;  // 新节点指向头节点的下一个节点
     newNode->Pre = head;  // 新节点的前一个节点指向头节点
@@ -48,8 +45,7 @@ void InsertHead(Node* head, Books b) {
 //  尾插法插入元素
 void InsertTail(Node* head, Books b) {
     Node* newNode = (Node*)malloc(sizeof(Node));
-    newNode->data = (Books*)malloc(sizeof(Books));
-    *(newNode->data) = b;
+    newNode->data = b;
 
     //找到最后一个节点
     Node* current = head->Next;
@@ -72,7 +68,7 @@ void InsertTail(Node* head, Books b) {
 void PrintList(Node* head) {
     Node* current = head->Next;
     while (current != NULL) {
-        printf("%d %s %d\n", current->data->id, current->data->name, current->data->price);
+        printf("%d %s %d\n", current->data.id, current->data.name, current->data.price);
         current = current->Next;
     }
 }
@@ -82,7 +78,6 @@ void FreeList(Node* head) {
     Node* current = head->Next;
     while (current != NULL) {
         Node* next = current->Next;
-        free(current->data);  // 释放节点数据内存
         free(current);  // 释放节点内存
         current = next;
     }
