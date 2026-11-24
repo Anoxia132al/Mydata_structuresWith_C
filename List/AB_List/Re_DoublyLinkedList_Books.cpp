@@ -3,9 +3,9 @@
 
 struct Books
 {
-    int book_id;
-    std::string name;
-    double price;
+    int book_id = 0;
+    std::string name = {};
+    double price = 0.0;
 
     Books () = default;
     Books (int id, std::string n, double p)
@@ -17,23 +17,29 @@ struct Node
     Books data;
     Node* next;
     Node* pre;
+
+    Node () : data{}, next(nullptr), pre(nullptr) {}
+    explicit Node(const Books& book)
+        : data(book), next(nullptr), pre(nullptr) {}
 };
 
 Node* initList ()
 {
-    Node* head = new Node;
-    head->next = nullptr;
-    head->pre = nullptr;
-    return head;
+    // Node* head = new Node;
+    // head->next = nullptr;
+    // head->pre = nullptr;
+    // return head;
+    return new Node;
 }
 
 Node* CreatNode (const Books& B)
 {
-    Node* tempNode = new Node;
-    tempNode->data = B;
-    tempNode->next = nullptr;
-    tempNode->pre = nullptr;
-    return tempNode;
+    // Node* tempNode = new Node;
+    // tempNode->data = B;
+    // tempNode->next = nullptr;
+    // tempNode->pre = nullptr;
+    // return tempNode;
+    return new Node(B);
 }
 
 void InsertHead (Node* head,const Books& B)
